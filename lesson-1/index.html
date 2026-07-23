@@ -1,3 +1,109 @@
 <!doctype html>
-<html lang="ru"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>Урок 1 — ИИ в автоматизации</title><link rel="stylesheet" href="../assets/css/base.css" /><link rel="stylesheet" href="../assets/css/lesson.css" /><script type="module" src="../assets/js/main.js"></script></head>
-<body><header class="site-header"><a class="brand" href="/">ИИ / автоматизация</a><a class="header-link" href="/#program">Все уроки</a></header><main class="container lesson-layout"><article><a class="back-link" href="/">← К программе</a><p class="eyebrow">Урок 01</p><h1 class="lesson-title">Разбираем входящие заявки</h1><p class="lesson-intro">Настроим понятный сценарий: ИИ читает текст заявки, выделяет нужные поля и готовит запись для таблицы.</p><section class="lesson-section" id="situation"><h2>Проблемная ситуация</h2><p>Заявки приходят в свободной форме. Их приходится вручную читать, искать контакты и определять срочность.</p></section><section class="lesson-section" id="forecast"><h2>Прогноз решения</h2><p>Если дать ИИ пример нужной структуры и чёткие правила, он сможет превратить текст в поля: имя, тема, срочность и следующий шаг.</p></section><section class="lesson-section" id="explain"><h2>Короткое объяснение</h2><p>Автоматизация состоит из триггера, обработки и действия. Здесь триггер — новая заявка, обработка — запрос к ИИ, действие — добавление строки в таблицу.</p></section><section class="lesson-section" id="example"><h2>Частично собранный пример</h2><div class="example"><strong>Инструкция ИИ</strong>Извлеки из заявки имя, email, тему и срочность. Верни только JSON. Если срочность не названа, укажи «обычная».</div></section><section class="lesson-section task" id="practice"><h2>Самостоятельная сборка</h2><ol class="step-list"><li>Создайте таблицу с четырьмя столбцами.</li><li>Подключите источник новой заявки.</li><li>Передайте текст заявки в ИИ и сохраните ответ в таблицу.</li></ol></section><section class="lesson-section" id="debug"><h2>Диагностика ошибок</h2><p>Если поля пустые, проверьте, передаётся ли полный текст. Если таблица получает одну длинную строку, попросите ИИ вернуть строго JSON и разберите отдельные поля.</p></section><section class="lesson-section" id="transfer"><h2>Перенос навыка</h2><p>По этой же схеме можно обрабатывать резюме, отзывы, обращения в поддержку и заметки встреч.</p></section><section class="lesson-section" id="review"><h2>Контроль и рефлексия</h2><ul class="checklist" data-checklist><li><label><input type="checkbox" /> Я описал(а) поля результата.</label></li><li><label><input type="checkbox" /> Я проверил(а) сценарий на трёх разных заявках.</label></li><li><label><input type="checkbox" /> Я знаю, где искать ошибку.</label></li></ul></section></article><nav class="lesson-nav" aria-label="Содержание"><strong>В уроке</strong><a href="#situation">Ситуация</a><a href="#forecast">Решение</a><a href="#example">Пример</a><a href="#practice">Практика</a><a href="#review">Рефлексия</a></nav></main></body></html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Урок: AI-классификатор входящих заявок." />
+    <title>Урок 1 — AI-классификатор заявок</title>
+    <link rel="stylesheet" href="../assets/css/base.css" />
+    <link rel="stylesheet" href="../assets/css/lesson.css" />
+    <script type="module" src="../assets/js/main.js"></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="/">ИИ / автоматизация</a>
+      <a class="header-link" href="/#program">Все уроки</a>
+    </header>
+
+    <main class="container lesson-layout">
+      <article>
+        <a class="back-link" href="/#program">← К программе</a>
+        <p class="eyebrow">Урок 01 · 45–60 минут</p>
+        <h1 class="lesson-title">AI-классификатор входящих заявок</h1>
+        <p class="lesson-intro">Соберём сценарий, который получает новую заявку из формы или Google Sheets, присваивает категорию и приоритет, записывает результат в строку и уведомляет нужного менеджера.</p>
+
+        <section class="lesson-section" id="situation">
+          <h2>Проблемная ситуация</h2>
+          <p>Заявки поступают в свободной форме. Менеджер вручную читает каждую, решает, кому её передать, и определяет срочность. На рутине теряется время, а важные обращения могут ждать слишком долго.</p>
+          <p><strong>Бизнес-задача:</strong> автоматически распределять новые заявки по категории и приоритету.</p>
+        </section>
+
+        <section class="lesson-section" id="forecast">
+          <h2>Прогноз решения</h2>
+          <p>Если новая заявка запускает сценарий, а ИИ получает понятные категории и формат ответа, то сценарий сможет заполнить нужные поля в Google Sheets и отправить менеджеру только релевантное уведомление.</p>
+          <div class="example"><strong>Схема сценария</strong>Google Form или новая строка в Google Sheets → AI-классификация → обновление строки → фильтр по приоритету → уведомление менеджеру.</div>
+        </section>
+
+        <section class="lesson-section" id="explain">
+          <h2>Короткое объяснение</h2>
+          <ol class="step-list">
+            <li><strong>Триггер</strong> замечает новую строку после отправки формы.</li>
+            <li><strong>Google Sheets</strong> хранит исходный текст и результаты обработки.</li>
+            <li><strong>Промпт</strong> задаёт допустимые категории, правила приоритета и формат ответа.</li>
+            <li><strong>Structured output</strong> возвращает предсказуемые поля, а не свободный текст.</li>
+            <li><strong>Mapping полей</strong> записывает каждое поле ответа ИИ в свой столбец.</li>
+            <li><strong>Фильтр</strong> пропускает к уведомлению, например, только заявки с высоким приоритетом.</li>
+          </ol>
+        </section>
+
+        <section class="lesson-section" id="example">
+          <h2>Частично собранный пример</h2>
+          <p>Создайте в таблице столбцы: <strong>Текст заявки</strong>, <strong>Категория</strong>, <strong>Приоритет</strong>, <strong>Краткое описание</strong>, <strong>Статус</strong>.</p>
+          <div class="example">
+            <strong>Промпт для классификатора</strong>
+            Ты классифицируешь входящие заявки компании. Определи категорию: <code>продажи</code>, <code>поддержка</code>, <code>партнёрство</code> или <code>прочее</code>. Определи приоритет: <code>высокий</code>, <code>средний</code> или <code>низкий</code>. Высокий — если клиент не может пользоваться продуктом, упоминает оплату или срочный дедлайн. Верни только JSON по схеме:<br /><code>{"category":"...", "priority":"...", "summary":"..."}</code><br />Текст заявки: <code>{{Текст заявки}}</code>
+          </div>
+          <p>Здесь <code>{{Текст заявки}}</code> — переменная из новой строки Google Sheets. В вашем конструкторе автоматизаций она может называться иначе.</p>
+        </section>
+
+        <section class="lesson-section task" id="practice">
+          <h2>Самостоятельная сборка</h2>
+          <ol class="step-list">
+            <li>Создайте Google Form с полями «Имя», «Контакт» и «Текст заявки». Свяжите её с Google Sheets.</li>
+            <li>Добавьте в таблицу три пустых столбца: «Категория», «Приоритет», «Краткое описание».</li>
+            <li>В Make, Zapier, n8n или другом инструменте добавьте триггер: новая строка в таблице.</li>
+            <li>Передайте текст заявки в AI-модуль с промптом из примера и включите structured output / JSON.</li>
+            <li>Сопоставьте поля <code>category</code>, <code>priority</code> и <code>summary</code> со столбцами строки.</li>
+            <li>Добавьте фильтр: пропускать дальше только <code>priority = высокий</code>.</li>
+            <li>После фильтра отправьте менеджеру уведомление с именем клиента, категорией и кратким описанием.</li>
+          </ol>
+        </section>
+
+        <section class="lesson-section" id="debug">
+          <h2>Диагностика ошибок</h2>
+          <p><strong>ИИ возвращает один длинный текст вместо полей.</strong> Проверьте, включён ли JSON / structured output, и оставьте в промпте точную схему.</p>
+          <p><strong>В таблицу не записывается категория.</strong> Проверьте mapping: поле <code>category</code> должно быть связано именно со столбцом «Категория».</p>
+          <p><strong>Уведомления приходят на все заявки.</strong> Убедитесь, что фильтр расположен между обновлением строки и модулем уведомления, а значение приоритета совпадает с тем, которое возвращает ИИ.</p>
+          <p><strong>Приоритет выглядит случайным.</strong> Добавьте в промпт 2–3 примера заявок с ожидаемым результатом и уточните правило высокого приоритета для вашего бизнеса.</p>
+        </section>
+
+        <section class="lesson-section" id="transfer">
+          <h2>Перенос навыка</h2>
+          <p>Та же конструкция применима к резюме кандидатов, обращениям в поддержку, отзывам клиентов и заметкам встреч: меняются только категории, правила приоритета и поля результата.</p>
+        </section>
+
+        <section class="lesson-section" id="review">
+          <h2>Контроль и рефлексия</h2>
+          <ul class="checklist" data-checklist>
+            <li><label><input type="checkbox" /> Триггер действительно находит новую заявку.</label></li>
+            <li><label><input type="checkbox" /> У ИИ есть список категорий, правила приоритета и JSON-схема.</label></li>
+            <li><label><input type="checkbox" /> Все три поля результата записываются в строку Google Sheets.</label></li>
+            <li><label><input type="checkbox" /> Фильтр отправляет менеджеру только приоритетные заявки.</label></li>
+            <li><label><input type="checkbox" /> Я проверил(а) сценарий на трёх разных текстах заявок.</label></li>
+          </ul>
+        </section>
+      </article>
+
+      <nav class="lesson-nav" aria-label="Содержание урока">
+        <strong>В уроке</strong>
+        <a href="#situation">Ситуация</a>
+        <a href="#forecast">Решение</a>
+        <a href="#explain">Как работает</a>
+        <a href="#example">Пример</a>
+        <a href="#practice">Практика</a>
+        <a href="#debug">Ошибки</a>
+        <a href="#review">Рефлексия</a>
+      </nav>
+    </main>
+  </body>
+</html>
